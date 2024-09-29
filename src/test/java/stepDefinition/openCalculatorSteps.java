@@ -1,30 +1,23 @@
 package stepDefinition;
 
-import io.appium.java_client.AppiumBy;
-import io.appium.java_client.AppiumDriver;
 import io.cucumber.java.en.*;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.DriverManager;
-
-import java.time.Duration;
+import pages.CalculatorPage;
 
 public class openCalculatorSteps {
-
-    private AppiumDriver driver; // Variable de clase
+    private CalculatorPage calculatorPage; // Variable para la página de la calculadora
 
     @Given("Abro la calculadora")
-    public void abro_la_calculadora() throws Exception {
-        // Inicializa y asigna el driver a la variable de clase
-        driver = DriverManager.initialize();
+    public void abro_la_calculadora()  {
+        // Inicializa el driver
+        DriverManager.initialize();
+        // Crea una instancia de la página de la calculadora
+        calculatorPage = new CalculatorPage(DriverManager.getDriver());
     }
 
     @When("Ingreso un numero")
     public void ingresoUnNumero() {
-        // Utiliza el driver inicializado para interactuar con la aplicación
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        WebElement digit5 = wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.id("com.google.android.calculator:id/digit_5")));
-        digit5.click();
+        // Usa el método de la página para presionar el número 5
+        calculatorPage.pressDigit5();
     }
 }
